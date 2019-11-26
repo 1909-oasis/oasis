@@ -18,63 +18,35 @@ import {
 import {book, build, colorFill, grid} from 'ionicons/icons'
 import React from 'react'
 import './Tab1.css'
+import Deck from './Deck'
+
+const cards = [
+  'https://upload.wikimedia.org/wikipedia/en/f/f5/RWS_Tarot_08_Strength.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/5/53/RWS_Tarot_16_Tower.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/9/9b/RWS_Tarot_07_Chariot.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/d/db/RWS_Tarot_06_Lovers.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/thumb/8/88/RWS_Tarot_02_High_Priestess.jpg/690px-RWS_Tarot_02_High_Priestess.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/d/de/RWS_Tarot_01_Magician.jpg'
+]
+
+const to = i => ({
+  x: 0,
+  y: i * -4,
+  scale: 1,
+  rot: -10 + Math.random() * 20,
+  delay: i * 100
+})
+const from = i => ({x: 0, rot: 0, scale: 1.5, y: -1000})
+// This is being used down there in the view, it interpolates rotation and scale into a css transform
+const trans = (r, s) =>
+  `perspective(1500px) rotateX(30deg) rotateY(${r /
+    10}deg) rotateZ(${r}deg) scale(${s})`
 
 class Tab1 extends React.Component {
   render() {
     return (
       <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Tab One</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonCard className="welcome-card">
-            <img src="/assets/shapes.svg" alt="" />
-            <IonCardHeader>
-              <IonCardSubtitle>Get Started</IonCardSubtitle>
-              <IonCardTitle>Welcome to Ionic</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-              <p>
-                Now that your app has been created, you'll want to start
-                building out features and components. Check out some of the
-                resources below for next steps.
-              </p>
-            </IonCardContent>
-          </IonCard>
-
-          <IonList lines="none">
-            <IonListHeader>
-              <IonLabel>Resources</IonLabel>
-            </IonListHeader>
-            <IonItem href="https://ionicframework.com/docs/" target="_blank">
-              <IonIcon slot="start" color="medium" icon={book} />
-              <IonLabel>Ionic Documentation</IonLabel>
-            </IonItem>
-            <IonItem
-              href="https://ionicframework.com/docs/building/scaffolding"
-              target="_blank"
-            >
-              <IonIcon slot="start" color="medium" icon={build} />
-              <IonLabel>Scaffold Out Your App</IonLabel>
-            </IonItem>
-            <IonItem
-              href="https://ionicframework.com/docs/layout/structure"
-              target="_blank"
-            >
-              <IonIcon slot="start" color="medium" icon={grid} />
-              <IonLabel>Change Your App Layout</IonLabel>
-            </IonItem>
-            <IonItem
-              href="https://ionicframework.com/docs/theming/basics"
-              target="_blank"
-            >
-              <IonIcon slot="start" color="medium" icon={colorFill} />
-              <IonLabel>Theme Your App</IonLabel>
-            </IonItem>
-          </IonList>
-        </IonContent>
+        <Deck tofunc={to} fromfunc={from} transfunc={trans} cards={cards} />
       </IonPage>
     )
   }
